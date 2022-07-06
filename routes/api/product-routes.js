@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
+      if (req.body.tagIds) {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
@@ -100,7 +100,7 @@ router.delete('/:id', (req, res) => {
   Product.destroy({
     where: {
       id: req.params.id
-  }
+    }
 })
   .then(deletedProduct => res.status(200).json(deletedProduct))
   .catch(err => res.json(err));
